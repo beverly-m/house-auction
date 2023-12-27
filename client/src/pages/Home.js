@@ -24,25 +24,9 @@ function Home() {
                             token: response.data.token
                         }
                     })
-                    // Axios.get(`http://localhost:5000/api/v1/employees/auction/${formData.company_no}`).then(response2 => {
-                    //     if (response2.data.status === 401)  {
-                    //         navigate('/')
-                    //     }
-                    //     else if (response2.data.bid === 'None') {
-                    //         navigate(`/newbid/${formData.company_no}`)
-                    //     }
-                    //     else { 
-                    //         navigate(`/bid/${formData.company_no}`)
-                    //     }
-                    // })
                 }
         }
-
         })
-
-
-        
-
     }
 
     const handleChange = (event) => {
@@ -51,19 +35,20 @@ function Home() {
     }
 
     return (
-        <div>
-            <div className='transparent-container'>
-                <div className='description-container'>
-                    <h1 className='heading-1'>From Numbers to New Beginnings: Your Home Awaits!</h1>
-                    <p className='body-text'>Enter our property bid featuring 56 diverse houses represented solely by numbers. Without visual previews, the excitement lies in selecting a number to reveal your future home—a mystery waiting to unfold. Embrace the anticipation and seize the opportunity to secure your ideal living space—your dream home could be just a number away!</p>  
+        <div className='main-container'>
+            <div className='img-container'>
+                <div className='transparent-container'>
+                    <div className='description-container'>
+                        <h1 className='heading-1'>From Numbers to New Beginnings: Your Home Awaits!</h1>
+                        <p className='body-text'>Enter our property bid featuring 56 diverse houses represented solely by numbers. Without visual previews, the excitement lies in selecting a number to reveal your future home—a mystery waiting to unfold. Embrace the anticipation and seize the opportunity to secure your ideal living space—your dream home could be just a number away!</p>  
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor='company_number' className='input-label'>Enter your company number</label>
+                        <input type='text' id='company_number' name='company_number' value={formData.company_no} onChange={handleChange} className='input-text'></input>
+                        <p className='error-text'>{errorMsg}</p>
+                        <button type='submit' className='button-hero'>Place House Bid</button>
+                    </form>
                 </div>
-                {/* <p>{formData.company_no}</p> */}
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor='company_number' className='input-label'>Enter your company number</label>
-                    <input type='text' id='company_number' name='company_number' value={formData.company_no} onChange={handleChange} className='input-text'></input>
-                    <p className='error-text'>{errorMsg}</p>
-                    <button type='submit' className='button-hero'>Place House Bid</button>
-                </form>
             </div>            
         </div>
     )
