@@ -10,10 +10,7 @@ function BidInfo() {
 
   const redirect = useCallback(() => {
       Axios.get(`http://localhost:5000/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
-      .then(response => {
-          console.log("Response from backend");
-          console.log(response.data.bid);
-          
+      .then(response => {          
           if (response.data.status === 401)  {
               navigate('/');
           }
@@ -33,9 +30,10 @@ function BidInfo() {
   }, [redirect])
 
   return (
-    <div>
-      <h3>Company number: {data.company_no}</h3>
-      <p>You selected a house property represented by the number {data.house_alias_no}.</p>
+    <div className='description-container bid-info-container'>
+      <h1 className='heading-1'>Company number: {data.company_no}</h1>
+      <p>You selected a house property represented by the number:</p>
+      <h1 className='heading-1'>{data.house_alias_no}</h1>
     </div>
   )
 }

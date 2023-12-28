@@ -32,6 +32,9 @@ function App() {
         <Route path="/bid/:id/:token" element={<BidInfo />} /> 
         <Route path="/*" element={<NoPage />} />
       </Routes>
+      <div className='footer-container'>
+        <p>© PPC Zimbabwe 2024</p>
+      </div>
     </BrowserRouter>
   )
 }

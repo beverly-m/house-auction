@@ -15,8 +15,6 @@ function AddBid() {
   const getOptions = useCallback(() => {
     Axios.get(`http://localhost:5000/api/v1/houses`)
     .then(response => {
-      console.log(response.data);
-      console.log(Object.entries(response.data.houses));
       const houses = Object.entries(response.data.houses);
       const housesArr = houses.map(item => ({
         "value": item[1].alias_no,
@@ -29,7 +27,6 @@ function AddBid() {
   const redirect = useCallback(() => {
       Axios.get(`http://localhost:5000/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
       .then(response  => {
-          console.log(response);
           if (response.data.status === 401)  {
               navigate('/')
           }
@@ -50,15 +47,12 @@ function AddBid() {
 
   const handleSubmit = (event) => {
       event.preventDefault();
-      console.log("Submitting...")
-      console.log(formData.house_alias)
 
       if (formData.house_alias === null) {
         setErrorMsg("Select a number");
       } else {
         Axios.post(`http://localhost:5000/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`, {alias: formData.house_alias}).then(response => {
             if (response.data) {
-                console.log(response.data)
                 if (response.data.status === 401) {
                     setErrorMsg(response.data.error); 
                 } else if (response.data.status === 409) {
@@ -79,20 +73,38 @@ function AddBid() {
 
   const handleChange = (event) => {
       const { value } = event; 
-      console.log(value)
       setFormData({house_alias: value});
   }
 
+  const customStyles = {
+    option: (defaultStyles, state) => ({
+      ...defaultStyles,
+      color: state.isSelected ? "#fff" : "#16161d",
+      backgroundColor: state.isSelected ? "#16161d" : "#fff",
+      borderBottom: state.isFocused ? "1px solid #d42f13" : "none",
+      borderTop: state.isFocused ? "1px solid #d42f13" : "none",
+    }),
+
+    control: (defaultStyles) => ({
+      ...defaultStyles,
+      backgroundColor: "#fff",
+      padding: "8px",
+      borderRadius: "0px",
+      border: "none",
+      boxShadow: "none",
+    }),
+    singleValue: (defaultStyles) => ({ ...defaultStyles, color: "#16161d", fontWeight: 600 }),
+  };
+
   return (
             <div>
-            <div className='transparent-container'>
+            <div className='description-container bid-info-container'>
                 <div className='description-container'>
                     <h1 className='heading-1'>Select a house property</h1>
                     <p className='body-text'>Pick a number from the dropdown below.</p>  
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor='house_alias' className='input-label'>Enter your company number</label>                    
-                    <Select id='house_alias' name='house_alias' options={optionsData} onChange={handleChange} defaultValue={""} />
+                <form onSubmit={handleSubmit} className='home-form-container' >                
+                    <Select id='house_alias' name='house_alias' options={optionsData} onChange={handleChange} defaultValue={""} styles={customStyles}/>
                     <p className='error-text'>{errorMsg}</p>
                     <button type='submit' className='button-hero'>Place Bid</button>
                 </form>

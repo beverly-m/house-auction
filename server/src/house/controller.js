@@ -14,8 +14,6 @@ const getAvailableHouses = (req, res) => {
                 return;
             }
 
-            console.log(`houses: ${JSON.stringify(result.rows)}`)
-
             // if there are houses available
             res.status(200).json({houses: result.rows})
         })

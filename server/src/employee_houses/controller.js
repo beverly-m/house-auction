@@ -64,8 +64,6 @@ const getEmployeeBid = (req, res) => {
     // verify token
     const { id, token } = req.params;
 
-    console.log(`Request: ${JSON.stringify(req.params)}`)
-
     try {
         jwt.verify(token, JWT_KEY)
     } catch (error) {
@@ -85,8 +83,6 @@ const getEmployeeBid = (req, res) => {
                 res.json({status: 404, bid: "None"}); 
                 return;
             }
-
-            console.log(`bid: ${JSON.stringify(result.rows[0])}`)
 
             // if employee has bid 
             res.status(200).json({bid: result.rows[0]})
