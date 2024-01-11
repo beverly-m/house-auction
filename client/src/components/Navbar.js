@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../images/PPC_logo_red.png";
 
-function Navbar() {
+const Navbar = () => {
   return (
     <div className='nav-container'>
             <Link to='/'><img className='Logo' src={logo} alt='PPC Logo'/></Link> 
