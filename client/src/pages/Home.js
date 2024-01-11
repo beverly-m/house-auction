@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 function Home() {
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ function Home() {
 
     return (
         <div className='main-container'>
+            <Navbar />
             <div className='img-container'>
                 <div className='transparent-container'>
                     <div className='description-container'>

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Axios from 'axios';
+import Navbar from '../components/Navbar';
 
 function BidInfo() {
   const [data, setData] = useState("");
@@ -30,10 +31,13 @@ function BidInfo() {
   }, [redirect])
 
   return (
-    <div className='description-container bid-info-container'>
-      <h1 className='heading-1'>Company number: {data.company_no}</h1>
-      <p>You selected a house property represented by the number:</p>
-      <h1 className='heading-1'>{data.house_alias_no}</h1>
+    <div>
+      <Navbar />
+      <div className='description-container bid-info-container'>
+        <h1 className='heading-1'>Company number: {data.company_no}</h1>
+        <p>You selected a house property represented by the number:</p>
+        <h1 className='heading-1'>{data.house_alias_no}</h1>
+      </div>
     </div>
   )
 }

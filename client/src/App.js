@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AddBid from "./pages/AddBid";
 import BidInfo from "./pages/BidInfo";
 import NoPage from "./pages/NoPage";
+import Admin from "./pages/Admin";
 import "./index";
 import logo from "./images/PPC_logo_red.png";
 
@@ -22,15 +23,12 @@ function App() {
 
   return (
     <BrowserRouter>
-        <div className='nav-container'>
-            <Link to='/'><img className='Logo' src={logo} alt='PPC Logo'/></Link> 
-            <h3 className='heading-3 nav-text'>House Property Auction</h3>
-        </div>
       <Routes>
         <Route index element={<Home />} />
         <Route path="/newbid/:id/:token" element={<AddBid />} />
         <Route path="/bid/:id/:token" element={<BidInfo />} /> 
         <Route path="/*" element={<NoPage />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <div className='footer-container'>
         <p>© PPC Zimbabwe 2024</p>

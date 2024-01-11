@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import Navbar from '../components/Navbar';
 
 function AddBid() {
 
@@ -98,6 +99,7 @@ function AddBid() {
 
   return (
             <div>
+            <Navbar />
             <div className='description-container bid-info-container'>
                 <div className='description-container'>
                     <h1 className='heading-1'>Select a house property</h1>

@@ -3,6 +3,14 @@
   src: local('Machine Regular'), url('./fonts/Machine-Regular.ttf') format('truetype');
 }
 
+html, 
+body, 
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Montserrat', 'Source Sans 3', 'Helvetica Neue', sans-serif;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', 'Source Sans 3', 'Helvetica Neue', sans-serif;
