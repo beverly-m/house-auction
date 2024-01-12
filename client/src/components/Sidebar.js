@@ -26,28 +26,28 @@ import {
 const navItems = [
     {
         text: "Dashboard",
-        icon: DashboardCustomizeRounded,
+        icon: <DashboardCustomizeRounded />,
     },
     {
         text: "Employees",
-        icon: PeopleOutlineRounded,
+        icon: <PeopleOutlineRounded />,
     },
     {
         text: "Houses",
-        icon: GiteRounded,
+        icon: <GiteRounded />,
     },
     {
         text: "Log Out",
-        icon: LogoutRounded,
-    }
+        icon: <LogoutRounded />,
+    },
 ]
 
-const Sidebar = (
+const Sidebar = ({
     isNonMobile,
     drawerWidth,
     isSidebarOpen,
-    setIsSidebarOpen
-) => {
+    setIsSidebarOpen,
+}) => {
 
     const { pathname } = useLocation();
     const [active, setActive] = useState("");
@@ -58,30 +58,34 @@ const Sidebar = (
         setActive(pathname.substring(1));
     }, [pathname]);
 
+    console.log(isNonMobile)
+
     return (
         <Box component="nav">
+            
             {isSidebarOpen && (
                 <Drawer 
                     open={isSidebarOpen}
                     onClose={() => setIsSidebarOpen(false)}
-                    variant='persistent'
-                    anchor='left'
+                    variant="persistent"
+                    anchor="left"
                     sx={{
                         width: drawerWidth,
+                        flexShrink: 0,
                         "& .MuiDrawer-paper": {
-                            color: theme.palette.secondary[200],
-                            backgroundColor: theme.palette.background.alt,
+                            color: "#16161d",
+                            backgroundColor: "#46464d",
                             boxSizing: "border-box",
                             borderWidth: isNonMobile ? 0 : "2px",
-                            width: drawerWidth
-                        }
+                            width: drawerWidth,
+                        },
                     }}
                 >
                     <Box width="100%">
                         <Box m="1.5rem 2rem 2rem 3rem">
-                            <FlexBetween color={theme.palette.secondary.main}>
+                            <FlexBetween color="white">
                                 <Box display="flex" alignItems="center" gap="0.5rem">
-                                    <Typography variant='h4' fontWeight="bold">PPC ZIMBABWE</Typography>
+                                    <Typography variant='h6' fontFamily="Machine Regular">PPC ZIMBABWE</Typography>
                                 </Box>
                                 {!isNonMobile && (
                                     <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -91,31 +95,36 @@ const Sidebar = (
                             </FlexBetween>
                         </Box>
                         <List>
-                            {navItems.map(({text, icon}) => {
+                            {navItems.map(({ text, icon }) => {
                                 const lcText = text.toLowerCase();
                                 return (
                                     <ListItem key={text} disablePadding>
-                                        <ListItemButton 
-                                            onClick={() => {
-                                                navigate(`/admin/${lcText}`);
-                                                setActive(lcText);
+                                        <ListItemButton onClick={() => { 
+                                            navigate(`/admin/${lcText}`); 
+                                            setActive(lcText);
                                             }}
                                             sx={{
-                                                backgroundColor: active === lcText ? "#989898" : "transparent",
-                                                color: active === lcText ? "#16161d" : "#777777"
+                                                backgroundColor: active === lcText ? "#666666" : "transparent",
+                                                color: active === lcText 
+                                                ? "#16161d" : 
+                                                "#444444"
                                             }}
                                         >
                                             <ListItemIcon 
-                                            sx={{ 
+                                            sx={{
                                                 ml: "2rem",
-                                                color: active === lcText ? "#16161d" : "#555555"
-                                            }}    
+                                                color: active === lcText 
+                                                ? "#16161d" : 
+                                                "#555555"
+                                                }}
                                             >
                                                 {icon}
                                             </ListItemIcon>
-                                            <ListItemText primary={text} />    
+                                            <ListItemText primary={text} />
+                                            {active === lcText && (
+                                                <ChevronRightRounded sx={{ ml: "auto" }} />
+                                            )}
                                         </ListItemButton>
-                                        {active === lcText && <ChevronRightRounded sx={{ml: "auto"}} /> }
                                     </ListItem>
                                 )
                             })}
