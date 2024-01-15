@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
 import {
     Box,
-    Divider,
     Drawer,
     IconButton,
     List,
@@ -12,7 +11,6 @@ import {
     ListItemIcon,
     ListItemText,
     Typography,
-    useTheme
 } from '@mui/material';
 import {
     ChevronLeftRounded,
