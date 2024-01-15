@@ -86,7 +86,7 @@ const Sidebar = ({
                                 <Box display="flex" alignItems="center" gap="0.5rem">
                                     <Typography variant='h6' fontFamily="Machine Regular">PPC ZIMBABWE</Typography>
                                 </Box>
-                                {isNonMobile && (
+                                {!isNonMobile && (
                                     <IconButton sx={{color: 'white'}} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                                         <ChevronLeftRounded />
                                     </IconButton>
@@ -97,7 +97,7 @@ const Sidebar = ({
                             {navItems.map(({ text, icon }) => {
                                 const lcText = text.toLowerCase();
                                 return (
-                                    <ListItem key={text} sx={{fontFamily: "Montserrat"}} disablePadding>
+                                    <ListItem key={text} disablePadding>
                                         <ListItemButton onClick={() => { 
                                             navigate(`/admin/${lcText}`); 
                                             setActive(lcText);

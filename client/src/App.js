@@ -17,9 +17,12 @@ const theme = createTheme({
     secondary: {
       main: "#ffffff",
     },
+    text: {
+      main: "#16161d",
+    }
   },
   typography: {
-    fontFamily: "Montserrat, Source Sans 3, Helvetica Neue, sans-serif"
+    fontFamily: "Montserrat, Source Sans 3, Helvetica Neue, sans-serif",
   }
 })
 
