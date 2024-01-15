@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import AddBid from "./pages/AddBid";
 import BidInfo from "./pages/BidInfo";
 import NoPage from "./pages/NoPage";
-import Admin from "./pages/Admin";
 import "./index";
 import Layout from './tabs/layout';
 import Dashboard from './tabs/dashboard';
@@ -19,6 +18,9 @@ const theme = createTheme({
       main: "#ffffff",
     },
   },
+  typography: {
+    fontFamily: "Montserrat, Source Sans 3, Helvetica Neue, sans-serif"
+  }
 })
 
 function App() {

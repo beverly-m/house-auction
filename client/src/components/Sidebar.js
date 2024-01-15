@@ -97,7 +97,7 @@ const Sidebar = ({
                             {navItems.map(({ text, icon }) => {
                                 const lcText = text.toLowerCase();
                                 return (
-                                    <ListItem key={text} disablePadding>
+                                    <ListItem key={text} sx={{fontFamily: "Montserrat"}} disablePadding>
                                         <ListItemButton onClick={() => { 
                                             navigate(`/admin/${lcText}`); 
                                             setActive(lcText);
