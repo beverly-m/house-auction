@@ -212,3 +212,7 @@ code {
     padding: 0em 1em 1.5em;
   }
 }
+
+.admin-container {
+  background-color: #fff;
+}

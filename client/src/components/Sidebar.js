@@ -52,7 +52,6 @@ const Sidebar = ({
     const { pathname } = useLocation();
     const [active, setActive] = useState("");
     const navigate = useNavigate();
-    const theme = useTheme();
 
     useEffect(() => {
         setActive(pathname.substring(1));
@@ -74,7 +73,7 @@ const Sidebar = ({
                         flexShrink: 0,
                         "& .MuiDrawer-paper": {
                             color: "#16161d",
-                            backgroundColor: "#46464d",
+                            backgroundColor: "#16161d",
                             boxSizing: "border-box",
                             borderWidth: isNonMobile ? 0 : "2px",
                             width: drawerWidth,
@@ -87,8 +86,8 @@ const Sidebar = ({
                                 <Box display="flex" alignItems="center" gap="0.5rem">
                                     <Typography variant='h6' fontFamily="Machine Regular">PPC ZIMBABWE</Typography>
                                 </Box>
-                                {!isNonMobile && (
-                                    <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                                {isNonMobile && (
+                                    <IconButton sx={{color: 'white'}} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                                         <ChevronLeftRounded />
                                     </IconButton>
                                 )}
@@ -104,18 +103,21 @@ const Sidebar = ({
                                             setActive(lcText);
                                             }}
                                             sx={{
-                                                backgroundColor: active === lcText ? "#666666" : "transparent",
+                                                backgroundColor: active === lcText ? "#d42f13" : "transparent",
                                                 color: active === lcText 
-                                                ? "#16161d" : 
-                                                "#444444"
+                                                ? "#ffffff" : 
+                                                "#ffffff",
+                                                ":hover": {
+                                                    backgroundColor: "#d42f13"
+                                                }
                                             }}
                                         >
                                             <ListItemIcon 
                                             sx={{
                                                 ml: "2rem",
                                                 color: active === lcText 
-                                                ? "#16161d" : 
-                                                "#555555"
+                                                ? "#ffffff" : 
+                                                "#ffffff"
                                                 }}
                                             >
                                                 {icon}

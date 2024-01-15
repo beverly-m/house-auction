@@ -10,7 +10,7 @@ const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     return (
-        <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%" >
+        <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%" className="admin-container" >
             <Sidebar
                 isNonMobile={isNonMobile}
                 drawerWidth={248}
