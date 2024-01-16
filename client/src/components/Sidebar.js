@@ -47,13 +47,13 @@ const Sidebar = ({
     setIsSidebarOpen,
 }) => {
 
-    const { pathname } = useLocation();
+    // const { pathname } = useLocation();
     const [active, setActive] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-        setActive(pathname.substring(1));
-    }, [pathname]);
+        setActive(navItems[0].text.toLowerCase());
+    }, [setActive]);
 
     return (
         <Box component="nav">
@@ -94,13 +94,13 @@ const Sidebar = ({
                                 const lcText = text.toLowerCase();
                                 return (
                                     <ListItem key={text} disablePadding>
-                                        <ListItemButton onClick={() => { 
-                                            navigate(`/admin/${lcText}`); 
+                                        <ListItemButton onClick={async () => { 
                                             setActive(lcText);
+                                            navigate(`/admin/${lcText}`);
                                             }}
                                             sx={{
                                                 backgroundColor: active === lcText ? "#d42f13" : "transparent",
-                                                color: active === lcText 
+                                                color: active === lcText
                                                 ? "#ffffff" : 
                                                 "#ffffff",
                                                 ":hover": {

@@ -7,6 +7,7 @@ import NoPage from "./pages/NoPage";
 import "./index";
 import Layout from './tabs/layout';
 import Dashboard from './tabs/dashboard';
+import Employees from './tabs/employees';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -40,6 +41,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} />
             <Route path='/admin/dashboard' element={<Dashboard />} />
+            <Route path='/admin/employees' element={<Employees />} />
           </Route>
         </Routes>
         <div className='footer-container'>
