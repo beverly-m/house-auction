@@ -13,12 +13,12 @@ import {
     Typography,
 } from '@mui/material';
 import {
-    ChevronLeftRounded,
     DashboardCustomizeRounded,
     PeopleOutlineRounded,
     GiteRounded,
     LogoutRounded,
-    ChevronRightRounded
+    ChevronRightRounded,
+    MenuRounded
 } from '@mui/icons-material';
 
 const navItems = [
@@ -55,8 +55,6 @@ const Sidebar = ({
         setActive(pathname.substring(1));
     }, [pathname]);
 
-    console.log(isNonMobile)
-
     return (
         <Box component="nav">
             
@@ -86,7 +84,7 @@ const Sidebar = ({
                                 </Box>
                                 {!isNonMobile && (
                                     <IconButton sx={{color: 'white'}} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                                        <ChevronLeftRounded />
+                                        <MenuRounded />
                                     </IconButton>
                                 )}
                             </FlexBetween>
