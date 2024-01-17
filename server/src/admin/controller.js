@@ -44,7 +44,7 @@ const getDashboardStats = async (req, res) => {
             num_employees: employees.rowCount,
             num_h_bids: houseBids.rowCount,
             num_houses: houses.rowCount,
-            houses_left: unselectedHouses.rowCount,
+            houses_left: unselectedHouses.rows,
         })
     } catch (error) {
         res.status(500);
