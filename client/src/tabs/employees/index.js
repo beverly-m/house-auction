@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Header from '../../components/Header';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import Axios from 'axios';
 import CustomToolbar from '../../components/CustomToolbar';
 
