@@ -8,6 +8,7 @@ import "./index";
 import Layout from './tabs/layout';
 import Dashboard from './tabs/dashboard';
 import Employees from './tabs/employees';
+import Houses from './tabs/houses';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -42,6 +43,7 @@ function App() {
             <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} />
             <Route path='/admin/dashboard' element={<Dashboard />} />
             <Route path='/admin/employees' element={<Employees />} />
+            <Route path='/admin/houses' element={<Houses />} />
           </Route>
         </Routes>
         <div className='footer-container'>

@@ -5,12 +5,13 @@ import { DataGrid } from '@mui/x-data-grid';
 import Axios from 'axios';
 import CustomToolbar from '../../components/CustomToolbar';
 
-const Employees = () => {
+const Houses = () => {
 
     const [data, setData] = useState();
 
     const getData = useCallback(() => {
-        Axios.get(`http://localhost:5000/api/v1/admin/employees`).then(response => {
+        Axios.get(`http://localhost:5000/api/v1/admin/houses`)
+        .then(response => {
             if (response.status !== 200) return;
             setData(response.data);
         })
@@ -19,28 +20,28 @@ const Employees = () => {
 
     const cols = [
         {
+            field: "house_no",
+            headerName: "House Stand No",
+            flex: 0.75,
+        },
+        {
+            field: "alias_no",
+            headerName: "Alias No",
+            flex: 0.6,
+        },
+        {
             field: "company_no",
-            headerName: "Company No",
+            headerName: "Employee Company No",
             flex: 0.75,
         },
         {
             field: "first_name",
             headerName: "First Name",
-            flex: 0.75,
+            flex: 0.6,
         },
         {
             field: "surname",
             headerName: "Surname",
-            flex: 0.75,
-        },
-        {
-            field: "house_no",
-            headerName: "House Stand No",
-            flex: 0.6,
-        },
-        {
-            field: "house_alias_no",
-            headerName: "Alias No",
             flex: 0.6,
         }
     ]
@@ -51,7 +52,7 @@ const Employees = () => {
 
     return (
         <Box m='1.5rem 2.5rem'>
-            <Header title="EMPLOYEES" subtitle="List of all employees and the house stands they selected."></Header>
+            <Header title="HOMES" subtitle="List of all houses and the employees that selected them"></Header>
             <Box
                 mt="32px"
                 height="70vh"
@@ -65,7 +66,7 @@ const Employees = () => {
                 <DataGrid
                 slots={{toolbar: CustomToolbar}}
                 loading={!data}
-                getRowId={(row) => row.company_no}
+                getRowId={(row) => row.house_no}
                 rows={data || []}
                 columns={cols}
                 initialState={{
@@ -81,4 +82,4 @@ const Employees = () => {
     )
 }
 
-export default Employees;
+export default Houses;

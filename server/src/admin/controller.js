@@ -13,6 +13,19 @@ const getEmployees = (req, res) => {
     }
 }
 
+const getHouses = (req, res) => {
+    try {
+        pool.query(queries.getHouses, (error, result) => {
+            if (error) throw error;
+            console.log(result.rows)
+            res.status(200).json(result.rows);
+        });
+    } catch (error) {
+        res.status(500);
+    }
+}
+
 module.exports = {
     getEmployees,
+    getHouses,
 }
