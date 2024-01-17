@@ -21,6 +21,7 @@ const Employees = () => {
         {
             field: "company_no",
             headerName: "Company number",
+            headerClassName: "super-app-theme--header",
             flex: 0.75,
         },
         {
@@ -56,6 +57,11 @@ const Employees = () => {
                 mt="32px"
                 height="70vh"
                 width="95%"
+                sx={{
+                    '& .css-t89xny-MuiDataGrid-columnHeaderTitle': {
+                        fontWeight: '600'
+                    },
+                }}
             >
                 <DataGrid
                 slots={{toolbar: CustomToolbar}}
