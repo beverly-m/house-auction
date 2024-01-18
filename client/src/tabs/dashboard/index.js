@@ -163,12 +163,12 @@ const Dashboard = () => {
                       House stands remaining
                     </Typography>
                     <Button 
-                  color='text' variant='text'
-                  onClick={() => navigate(`/admin/houses`)}
-                  sx={{color: theme.palette.primary.main, fontWeight: "600", fontFamily: theme.typography.fontFamily}}
-                  >
-                    View Houses
-                  </Button>
+                    color='text' variant='text'
+                    onClick={() => navigate(`/admin/houses`)}
+                    sx={{color: theme.palette.primary.main, fontWeight: "600", fontFamily: theme.typography.fontFamily}}
+                    >
+                      View Houses
+                    </Button>
                   </FlexBetween>
                   
                   <DataGrid

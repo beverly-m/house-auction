@@ -1,6 +1,22 @@
 const pool = require("../../db");
 const queries = require("./queries");
 
+const login = (req, res) => {
+    
+}
+
+const signup = (req, res) => {
+    
+}
+
+const logout = (req, res) => {
+    
+}
+
+const changepassword = (req, res) => {
+    
+}
+
 const getEmployees = (req, res) => {
     try {
         pool.query(queries.getEmployees, (error, result) => {

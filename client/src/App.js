@@ -10,6 +10,8 @@ import Dashboard from './tabs/dashboard';
 import Employees from './tabs/employees';
 import Houses from './tabs/houses';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Login from './auth/Login';
+import Signup from './auth/Signup';
 
 const theme = createTheme({
   palette: {
@@ -37,10 +39,11 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/newbid/:id/:token" element={<AddBid />} />
           <Route path="/bid/:id/:token" element={<BidInfo />} /> 
-          <Route path="/*" element={<NoPage />} />
-          {/* <Route path="/admin" element={<Admin />} />  */}
+          <Route path="*" element={<NoPage />} />
+          <Route path='/admin' element={<Login />} />
+          <Route path='/admin/register' element={<Signup />} />
           <Route element={<Layout />}>
-            <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} />
+            {/* <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} /> */}
             <Route path='/admin/dashboard' element={<Dashboard />} />
             <Route path='/admin/employees' element={<Employees />} />
             <Route path='/admin/houses' element={<Houses />} />
