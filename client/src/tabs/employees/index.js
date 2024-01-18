@@ -54,7 +54,7 @@ const Employees = () => {
             <Header title="EMPLOYEES" subtitle="List of all employees and the house stands they selected."></Header>
             <Box
                 mt="32px"
-                height="70vh"
+                height="100vh"
                 width="95%"
                 sx={{
                     '& .css-t89xny-MuiDataGrid-columnHeaderTitle': {
