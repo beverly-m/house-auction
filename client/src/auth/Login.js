@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -15,13 +16,26 @@ const Login = () => {
         validationSchema: Yup.object({
             email: Yup.string()
             .required("Email required")
-            .email("Invalid email address"),
+            .email("Invalid email address")
+            .max(100, "Email too long."),
             password: Yup.string()
             .required("Password required")
+            .min(6, "Password at least 6 characters")
         }),
         onSubmit: (values, actions) => {
-            alert(JSON.stringify(values, null, 2))
+            const vals = {...values}
+            // alert(JSON.stringify(values, null, 2))
             actions.resetForm();
+            Axios.post('http://localhost:5000/api/v1/admin', {vals})
+            .catch(err => {
+                return;
+            })
+            .then( response => {
+                if (!response || response.status !== 200) {
+                    return;
+                }
+                console.log(response.data);
+            })
         }
     });
 

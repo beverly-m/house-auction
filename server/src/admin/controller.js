@@ -1,8 +1,9 @@
 const pool = require("../../db");
+const validateForm = require("./middleware");
 const queries = require("./queries");
 
 const login = (req, res) => {
-    
+    validateForm(req, res);
 }
 
 const signup = (req, res) => {
@@ -71,4 +72,8 @@ module.exports = {
     getEmployees,
     getHouses,
     getDashboardStats,
+    login,
+    logout,
+    signup,
+    changepassword,
 }

@@ -17,7 +17,10 @@ const { API_PORT } = process.env;
 
 const port = process.env.PORT || API_PORT;
 
-app.use(cors({credentials: true, origin: true}));
+app.use(cors({
+    credentials: true, 
+    origin: "http://localhost:3000"
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
