@@ -5,30 +5,86 @@ const bcrypt = require("bcrypt");
 
 const { SALT_ROUNDS } = process.env;
 
-const login = (req, res) => {
-    validateForm(req, res);
+const login = async (req, res) => {
+    console.log(req.session.user);
+
+    try {
+        validateForm(req, res);
+
+        const { email, password } = req.body.vals;
+
+        const attemptLogin = await pool.query(queries.getUser, [email]);
+
+        if (attemptLogin.rowCount === 0) {
+            console.log("Failed login")
+            return res.status(401).json({
+                loggedIn: false, 
+                status: "Wrong email or password"
+            });
+        } else {
+            const isValidPassword = await bcrypt.compare(password, attemptLogin.rows[0].user_password);
+
+            if (isValidPassword) {
+                req.session.user = {
+                    email: email, 
+                    role: attemptLogin.rows[0].user_role,
+                };
+
+                return res.status(200).json({
+                    loggedIn: true, 
+                    email: email, 
+                    role: attemptLogin.rows[0].user_role 
+                });
+            } else {
+                console.log("Failed login")
+                return res.status(401).json({
+                    loggedIn: false, 
+                    status: "Wrong email or password"
+                });
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
 }
 
 const signup = async (req, res) => {
-    validateForm(req, res);
+    try {
+        validateForm(req, res);
 
-    const { email, password } = req.body.vals;
+        const { email, password } = req.body.vals;
 
-    const existingUser = await pool.query(queries.getUser, [email]);
+        const existingUser = await pool.query(queries.findUser, [email]);
 
-    if (existingUser.rowCount === 0) {
-        // register user
-        const hashedPass = await bcrypt.hash(password, SALT_ROUNDS);
-        const newUser = await pool.query("INSERT INTO users(email, user_password) values($1, $2, $3) RETURNING email, user_role", [email, password, 'admin']);
+        if (existingUser.rowCount === 0) {
+            // register user
+            const hashedPass = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
+            const newUser = await pool.query(queries.addUser, [email, hashedPass, 'admin']);
 
-        res.json({loggedIn: true, email});
-        
-    } else {
-        res.json({
-            loggedIn: false, 
-            status: "Email address taken."
-        });
+            req.session.user = {
+                email: email, 
+                role: newUser.rows[0].user_role,
+            }
+            console.log("User created");
+            return res.status(200).json({
+                loggedIn: true, 
+                email: email, 
+                role: newUser.rows[0].user_role 
+            });
+
+        } else {
+            return res.status(401).json({
+                loggedIn: false, 
+                status: "Email address taken."
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500);
     }
+    
 }
 
 const logout = (req, res) => {

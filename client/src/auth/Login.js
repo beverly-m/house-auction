@@ -26,7 +26,12 @@ const Login = () => {
             const vals = {...values}
             // alert(JSON.stringify(values, null, 2))
             actions.resetForm();
-            Axios.post('http://localhost:5000/api/v1/admin', {vals})
+            Axios.post('http://localhost:5000/api/v1/admin', {vals}, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            })
             .catch(err => {
                 return;
             })

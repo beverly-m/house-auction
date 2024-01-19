@@ -10,10 +10,11 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const session = require("express-session");
 
 const app = express();
 
-const { API_PORT } = process.env;
+const { API_PORT, SESSION_SECRET, ENVIRONMENT } = process.env;
 
 const port = process.env.PORT || API_PORT;
 
@@ -28,6 +29,22 @@ app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
+
+if (app.get('env' === "production")) {
+    app.set('trust proxy', 1);
+}
+
+app.use(session({
+    secret: SESSION_SECRET,
+    name: "sid",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: app.get('env') === "production" ? "true" : "auto",
+        httpOnly: true,
+        sameSite: app.get('env') === "production" ? "none" : "lax"
+    }
+}))
 
 
 app.use("/api/v1/employees", employeeRoutes);
