@@ -1,13 +1,34 @@
 const pool = require("../../db");
 const validateForm = require("./middleware");
 const queries = require("./queries");
+const bcrypt = require("bcrypt");
+
+const { SALT_ROUNDS } = process.env;
 
 const login = (req, res) => {
     validateForm(req, res);
 }
 
-const signup = (req, res) => {
-    
+const signup = async (req, res) => {
+    validateForm(req, res);
+
+    const { email, password } = req.body.vals;
+
+    const existingUser = await pool.query(queries.getUser, [email]);
+
+    if (existingUser.rowCount === 0) {
+        // register user
+        const hashedPass = await bcrypt.hash(password, SALT_ROUNDS);
+        const newUser = await pool.query("INSERT INTO users(email, user_password) values($1, $2, $3) RETURNING email, user_role", [email, password, 'admin']);
+
+        res.json({loggedIn: true, email});
+        
+    } else {
+        res.json({
+            loggedIn: false, 
+            status: "Email address taken."
+        });
+    }
 }
 
 const logout = (req, res) => {

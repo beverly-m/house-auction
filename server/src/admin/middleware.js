@@ -12,9 +12,10 @@ const formSchema = Yup.object({
 
 const validateForm = (req, res) => {
     const formData = req.body;
+
     formSchema.validate(formData.vals)
+    
     .catch(err => {
-        console.log(err.errors);
         return res.status(422);
     })
     .then(valid => {
