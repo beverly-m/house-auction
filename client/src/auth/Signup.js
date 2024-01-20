@@ -1,12 +1,15 @@
 import { Box, Button, ButtonGroup, FormControl, FormHelperText, FormLabel, Input, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import { AccountContext } from '../accountContext';
 
 const Signup = () => {
     const navigate = useNavigate();
+
+    const { setUser } = useContext(AccountContext);
 
     const formik = useFormik({
         initialValues: {
@@ -39,8 +42,9 @@ const Signup = () => {
                 if (!response || response.status !== 200) {
                     return;
                 }
-
                 console.log(response.data);
+                setUser({...response.data});
+                navigate("/admin/dashboard");
             })
         }
     });

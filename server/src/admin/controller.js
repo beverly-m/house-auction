@@ -16,7 +16,7 @@ const login = async (req, res) => {
         const attemptLogin = await pool.query(queries.getUser, [email]);
 
         if (attemptLogin.rowCount === 0) {
-            console.log("Failed login")
+            console.log("Failed login username")
             return res.status(401).json({
                 loggedIn: false, 
                 status: "Wrong email or password"
@@ -36,7 +36,7 @@ const login = async (req, res) => {
                     role: attemptLogin.rows[0].user_role 
                 });
             } else {
-                console.log("Failed login")
+                console.log("Failed login password")
                 return res.status(401).json({
                     loggedIn: false, 
                     status: "Wrong email or password"
@@ -85,6 +85,16 @@ const signup = async (req, res) => {
         res.status(500);
     }
     
+}
+
+const checkLoggedIn = (req, res) => {
+    console.log(`Session: ${JSON.stringify(req.session)}`)
+    if (req.session.user && req.session.user.email) {
+        console.log("logged in")
+        res.status(200).json({loggedIn: true, email: req.session.user.email, role: req.session.user.role});
+    } else {
+        res.status(200).json({loggedIn: false, email: null, role: null});
+    }
 }
 
 const logout = (req, res) => {
@@ -150,6 +160,7 @@ module.exports = {
     getHouses,
     getDashboardStats,
     login,
+    checkLoggedIn,
     logout,
     signup,
     changepassword,

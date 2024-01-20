@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import AddBid from "./pages/AddBid";
@@ -12,6 +12,8 @@ import Houses from './tabs/houses';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
+import PrivateRoutes from './privateRoutes';
+import UserContext, { AccountContext } from './accountContext';
 
 const theme = createTheme({
   palette: {
@@ -31,29 +33,32 @@ const theme = createTheme({
 })
 
 function App() {
-
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/newbid/:id/:token" element={<AddBid />} />
-          <Route path="/bid/:id/:token" element={<BidInfo />} /> 
-          <Route path="*" element={<NoPage />} />
-          <Route path='/admin' element={<Login />} />
-          <Route path='/admin/register' element={<Signup />} />
-          <Route element={<Layout />}>
-            {/* <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} /> */}
-            <Route path='/admin/dashboard' element={<Dashboard />} />
-            <Route path='/admin/employees' element={<Employees />} />
-            <Route path='/admin/houses' element={<Houses />} />
-          </Route>
-        </Routes>
-        <div className='footer-container'>
-          <p>© PPC Zimbabwe 2024</p>
-        </div>
-      </BrowserRouter>
-    </ThemeProvider>
+    <UserContext>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/newbid/:id/:token" element={<AddBid />} />
+            <Route path="/bid/:id/:token" element={<BidInfo />} /> 
+            <Route path="*" element={<NoPage />} />
+            <Route path='/admin' element={<Login />} />
+            <Route path='/admin/register' element={<Signup />} />
+            <Route element={<PrivateRoutes />}>
+              <Route element={<Layout />}>
+                {/* <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} /> */}
+                <Route path='/admin/dashboard' element={<Dashboard />} />
+                <Route path='/admin/employees' element={<Employees />} />
+                <Route path='/admin/houses' element={<Houses />} />
+              </Route>
+            </Route>
+          </Routes>
+          <div className='footer-container'>
+            <p>© PPC Zimbabwe 2024</p>
+          </div>
+        </BrowserRouter>
+      </ThemeProvider>
+    </UserContext>
   )
 }
 
