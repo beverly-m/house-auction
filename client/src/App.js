@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import AddBid from "./pages/AddBid";
 import BidInfo from "./pages/BidInfo";
@@ -13,7 +13,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
 import PrivateRoutes from './privateRoutes';
-import UserContext, { AccountContext } from './accountContext';
+import UserContext from './accountContext';
 
 const theme = createTheme({
   palette: {

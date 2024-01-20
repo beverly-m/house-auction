@@ -1,15 +1,19 @@
 import { Box, Button, ButtonGroup, FormControl, FormHelperText, FormLabel, Input, Typography } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { AccountContext } from '../accountContext';
 
 const Signup = () => {
     const navigate = useNavigate();
 
-    const { setUser } = useContext(AccountContext);
+    const {user, setUser} = useContext(AccountContext);
+
+    const [error, setError] = useState(null);
+
+    console.log(user);
 
     const formik = useFormik({
         initialValues: {
@@ -38,18 +42,28 @@ const Signup = () => {
             .catch(err => {
                 return;
             })
-            .then( response => {
+            .then(response => {
+                console.log(response);
                 if (!response || response.status !== 200) {
+                    setError("Email address already taken.")
+                    return;
+                } else if (response.data.status) {
+                    setError(response.data.status);
                     return;
                 }
-                console.log(response.data);
-                setUser({...response.data});
-                navigate("/admin/dashboard");
+                else {
+                    console.log(response.data);
+                    setUser({...response.data});
+                    navigate("/admin/dashboard");
+                }
+                
             })
         }
     });
 
-    return (
+    return user && user.loggedIn ? 
+    (<Navigate to="/admin/dashboard"/>) : 
+    (
         <form onSubmit={formik.handleSubmit}>
         <Box sx={{ 
             backgroundColor: "white", 
@@ -66,6 +80,7 @@ const Signup = () => {
             }}>
                 
                 <Typography variant='h4' fontFamily="Machine regular" color="#16161d" mb="1.5rem">Sign Up</Typography>
+                <Typography variant='body1' color="red">{error}</Typography>
                 <FormControl fullWidth>
                     <FormLabel>Email</FormLabel>
                     <Input 

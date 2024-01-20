@@ -1,15 +1,19 @@
 import { Box, Button, ButtonGroup, FormControl, FormHelperText, FormLabel, Input, Typography } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useState, } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { AccountContext } from '../accountContext';
 
 const Login = () => {
     const navigate = useNavigate();
 
-    const { setUser } = useContext(AccountContext);
+    const {user, setUser } = useContext(AccountContext);
+
+    const [error, setError] = useState(null);
+
+    console.log(user);
 
     const formik = useFormik({
         initialValues: {
@@ -40,6 +44,9 @@ const Login = () => {
             })
             .then( response => {
                 if (!response || response.status !== 200) {
+                    if (response.data.status) {
+                        setError(response.data.status);
+                    }
                     return;
                 }
                 console.log(response.data);
@@ -49,7 +56,9 @@ const Login = () => {
         }
     });
 
-    return (
+    return user && user.loggedIn ? 
+    (<Navigate to="/admin/dashboard"/>) : 
+    (
         <form onSubmit={formik.handleSubmit}>
         <Box sx={{ 
             backgroundColor: "white", 
@@ -66,6 +75,7 @@ const Login = () => {
             }}>
                 
                 <Typography variant='h4' fontFamily="Machine regular" color="#16161d" mb="1.5rem">Log In</Typography>
+                <Typography variant='body1' color="red">{error}</Typography>
                 <FormControl fullWidth>
                     <FormLabel>Email</FormLabel>
                     <Input 

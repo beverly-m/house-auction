@@ -68,14 +68,16 @@ const signup = async (req, res) => {
                 role: newUser.rows[0].user_role,
             }
             console.log("User created");
-            return res.status(200).json({
+            res.status(200).json({
                 loggedIn: true, 
                 email: email, 
                 role: newUser.rows[0].user_role 
             });
+            return;
 
         } else {
-            return res.status(401).json({
+            console.log("Herrrreeeee")
+            res.status(401).json({
                 loggedIn: false, 
                 status: "Email address taken."
             });
