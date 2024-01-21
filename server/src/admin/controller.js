@@ -101,7 +101,22 @@ const checkLoggedIn = (req, res) => {
 }
 
 const logout = (req, res) => {
-    
+    console.log("Logging out")
+    if (req.session.user) {
+        console.log(req.session.user)
+            req.session.destroy(function () {
+            res.status(200).clearCookie('connect.sid', { path: '/' });
+            res.end();
+            return;
+        })
+        // req.session = null;
+        // res.status(200).clearCookie('sid', { path: '/' });
+        // res.end();
+        // return;
+    } else {
+        res.status(200);
+        return;
+    }
 }
 
 const changepassword = (req, res) => {

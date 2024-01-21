@@ -43,7 +43,7 @@ app.use(session({
         secure: app.get('env') === "production" ? "true" : "auto",
         httpOnly: true,
         sameSite: app.get('env') === "production" ? "none" : "lax",
-        maxAge: 1000 * 60 * 60 * 6,
+        maxAge: 1000 * 60 * 60 * 6, 
     }
 }))
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
+import Axios from 'axios';
 import {
     Box,
     Drawer,
@@ -11,6 +12,12 @@ import {
     ListItemIcon,
     ListItemText,
     Typography,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
 } from '@mui/material';
 import {
     DashboardCustomizeRounded,
@@ -55,11 +62,45 @@ const Sidebar = ({
     const [active, setActive] = useState("");
     const navigate = useNavigate();
 
-    const {user} = useContext(AccountContext);
+    const {user, setUser} = useContext(AccountContext);
+
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState();
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    const handleLogOut = () => {
+        try {
+            Axios.get('http://localhost:5000/api/v1/admin/logout', {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            }).then(response => {
+                if (!response || response.status !== 200) {
+                    setError("An error occurred. Try again.")
+                    return;
+                } 
+                else {
+                    setUser({loggedIn: null, email: null, role: null});
+                    navigate("/admin");
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         setActive(navItems[0].text.toLowerCase());
     }, [setActive]);
+
 
     return (
         <Box component="nav">
@@ -105,7 +146,12 @@ const Sidebar = ({
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton onClick={async () => { 
                                             setActive(lcText);
-                                            navigate(`/admin/${lcText}`);
+                                            if (lcText === "log out") {
+                                                handleClickOpen();
+                                            } else {
+                                                navigate(`/admin/${lcText}`);
+                                            }
+                                            
                                             }}
                                             sx={{
                                                 backgroundColor: active === lcText ? "#d42f13" : "transparent",
@@ -143,7 +189,28 @@ const Sidebar = ({
                     </Box>
                 </Drawer>
             )}
-
+                <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle fontWeight={700}>Log Out</DialogTitle>
+                    <DialogContent>
+                        {error ? <Typography sx={{ color: "red", mb: "1rem" }}>Hi {error}</Typography> : <></>}
+                        <DialogContentText sx={{ color: "#16161d" }}>
+                            Are you sure you want to log out?
+                        </DialogContentText>
+                        <DialogActions sx={{mt: "2rem", display: "flex", gap: "2rem"}}>
+                            <Button onClick={handleClose}>
+                                Cancel
+                            </Button>
+                            <Button variant='contained' onClick={handleLogOut} autoFocus>
+                                Log Out
+                            </Button>
+                        </DialogActions>
+                    </DialogContent>
+                </Dialog>
         </Box>
     )
 }
