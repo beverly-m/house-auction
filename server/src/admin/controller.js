@@ -108,6 +108,45 @@ const changepassword = (req, res) => {
     
 }
 
+const getAdmins = async (req, res) => {
+    try {
+        const users = await pool.query(queries.getAdmins);
+        res.status(200).json({ users: users.rows });
+    } catch (error) {
+        res.status(500);
+    }
+}
+
+const addAdmin = async (req, res) => {
+    try {
+        validateForm(req, res);
+
+        const { email, password } = req.body.vals;
+
+        const existingUser = await pool.query(queries.findUser, [email]);
+
+        if (existingUser.rowCount === 0) {
+            // register user
+            const hashedPass = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
+            const newUser = await pool.query(queries.addUser, [email, hashedPass, 'viewer']);
+
+            console.log("User created");
+            res.status(200).json({status: "User added"});
+            return;
+
+        } else {
+            res.status(401).json({
+                status: "Email address taken."
+            });
+            return;
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+    
+}
+
 const getEmployees = (req, res) => {
     try {
         pool.query(queries.getEmployees, (error, result) => {
@@ -162,6 +201,8 @@ module.exports = {
     getEmployees,
     getHouses,
     getDashboardStats,
+    getAdmins,
+    addAdmin,
     login,
     checkLoggedIn,
     logout,

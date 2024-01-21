@@ -9,6 +9,7 @@ import Layout from './tabs/layout';
 import Dashboard from './tabs/dashboard';
 import Employees from './tabs/employees';
 import Houses from './tabs/houses';
+import Admin from './tabs/admin';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
@@ -50,6 +51,7 @@ function App() {
                 <Route path='/admin/dashboard' element={<Dashboard />} />
                 <Route path='/admin/employees' element={<Employees />} />
                 <Route path='/admin/houses' element={<Houses />} />
+                <Route path='/admin/management' element={<Admin />} />
               </Route>
             </Route>
           </Routes>

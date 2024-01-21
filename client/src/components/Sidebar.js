@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FlexBetween from './FlexBetween';
 import {
@@ -18,8 +18,10 @@ import {
     GiteRounded,
     LogoutRounded,
     ChevronRightRounded,
-    MenuRounded
+    MenuRounded,
+    AdminPanelSettingsRounded
 } from '@mui/icons-material';
+import { AccountContext } from '../accountContext';
 
 const navItems = [
     {
@@ -35,6 +37,10 @@ const navItems = [
         icon: <GiteRounded />,
     },
     {
+        text: "Management",
+        icon: <AdminPanelSettingsRounded />,
+    },
+    {
         text: "Log Out",
         icon: <LogoutRounded />,
     },
@@ -46,10 +52,10 @@ const Sidebar = ({
     isSidebarOpen,
     setIsSidebarOpen,
 }) => {
-
-    // const { pathname } = useLocation();
     const [active, setActive] = useState("");
     const navigate = useNavigate();
+
+    const {user} = useContext(AccountContext);
 
     useEffect(() => {
         setActive(navItems[0].text.toLowerCase());
@@ -92,7 +98,10 @@ const Sidebar = ({
                         <List>
                             {navItems.map(({ text, icon }) => {
                                 const lcText = text.toLowerCase();
-                                return (
+
+                                if (lcText !== "management" || (lcText === "management" && user.role === "admin") ) {}
+
+                                return lcText !== "management" || (lcText === "management" && user.role === "admin") ? (
                                     <ListItem key={text} disablePadding>
                                         <ListItemButton onClick={async () => { 
                                             setActive(lcText);
@@ -124,6 +133,10 @@ const Sidebar = ({
                                             )}
                                         </ListItemButton>
                                     </ListItem>
+                                )
+                                :
+                                (
+                                <></>
                                 )
                             })}
                         </List>
