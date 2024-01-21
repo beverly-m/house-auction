@@ -15,6 +15,8 @@ const Signup = () => {
 
     console.log(user);
 
+    console.log(error);
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -31,39 +33,48 @@ const Signup = () => {
         }),
         onSubmit: (values, actions) => {
             const vals = {...values}
-            // alert(JSON.stringify(values, null, 2))
             actions.resetForm();
-            Axios.post('http://localhost:5000/api/v1/admin/register', {vals}, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true,
-            })
-            .catch(err => {
-                return;
-            })
-            .then(response => {
-                console.log(response);
-                if (!response || response.status !== 200) {
-                    setError("Email address already taken.")
-                    return;
-                } else if (response.data.status) {
-                    setError(response.data.status);
-                    return;
-                }
-                else {
-                    console.log(response.data);
-                    setUser({...response.data});
-                    navigate("/admin/dashboard");
-                }
-                
-            })
+
+            try {
+                Axios
+                .post('http://localhost:5000/api/v1/admin/register', {vals}, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }) 
+                .then(response => {
+                    if (!response || response.status !== 200) {
+                        setError("An error occurred. Try again.")
+                        return;
+                    } else if (response.data.status) {
+                        console.log(`Status ${response.status}`);
+                        setError(response.data.status);
+                        return;
+                    }
+                    else {
+                        console.log(response.data);
+                        setUser({...response.data});
+                        navigate("/admin/dashboard");
+                    }
+                    
+                }).catch((error) => {
+                    if (error.response.data) {
+                        setError(error.response.data.status)
+                    } else {
+                        setError("An error occurred. Try again.")
+                    }
+                }) 
+            } catch (error) {
+                setError("An error occurred. Try again.")
+            }
+            
         }
     });
 
     return user && user.loggedIn ? 
     (<Navigate to="/admin/dashboard"/>) : 
-    (
+    ( 
         <form onSubmit={formik.handleSubmit}>
         <Box sx={{ 
             backgroundColor: "white", 
@@ -78,7 +89,6 @@ const Signup = () => {
             flexDirection: "column",
             alignItems: "center"
             }}>
-                
                 <Typography variant='h4' fontFamily="Machine regular" color="#16161d" mb="1.5rem">Sign Up</Typography>
                 <Typography variant='body1' color="red">{error}</Typography>
                 <FormControl fullWidth>

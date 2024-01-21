@@ -81,6 +81,7 @@ const signup = async (req, res) => {
                 loggedIn: false, 
                 status: "Email address taken."
             });
+            return;
         }
     } catch (error) {
         console.log(error);

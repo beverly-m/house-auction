@@ -31,28 +31,38 @@ const Login = () => {
         }),
         onSubmit: (values, actions) => {
             const vals = {...values}
-            // alert(JSON.stringify(values, null, 2))
             actions.resetForm();
-            Axios.post('http://localhost:5000/api/v1/admin', {vals}, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true,
-            })
-            .catch(err => {
-                return;
-            })
-            .then( response => {
-                if (!response || response.status !== 200) {
-                    if (response.data.status) {
-                        setError(response.data.status);
+
+            try {
+                Axios.post('http://localhost:5000/api/v1/admin', {vals}, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                })
+                .then( response => {
+                    if (!response || response.status !== 200) {
+                        if (response.data.status) {
+                            setError(response.data.status);
+                            return;
+                        }
+                        setError("An error occurred. Try again.");
+                        return;
                     }
-                    return;
-                }
-                console.log(response.data);
-                setUser({...response.data});
-                navigate("/admin/dashboard");
-            })
+                    console.log(response.data);
+                    setUser({...response.data});
+                    navigate("/admin/dashboard");
+                })
+                .catch(err => {
+                    if (err.response.data) {
+                        setError(err.response.data.status)
+                    } else {
+                        setError("An error occurred. Try again.")
+                    }
+                })
+            } catch (error) {
+                setError("An error occurred. Try again.")
+            }
         }
     });
 
