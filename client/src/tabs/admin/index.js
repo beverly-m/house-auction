@@ -15,8 +15,6 @@ const Admin = () => {
     const {user} = useContext(AccountContext);
     const navigate = useNavigate();
 
-    console.log(user);
-
     const getData = useCallback(() => {
         Axios.get(`http://localhost:5000/api/v1/admin/management`).then(response => {
             if (response.status !== 200) return;
@@ -68,12 +66,10 @@ const Admin = () => {
                         setError("An error occurred. Try again.")
                         return;
                     } else if (response.data.status) {
-                        console.log(`Status ${response.status}`);
                         setError(response.data.status);
                         return;
                     }
                     else {
-                        console.log(response.data);
                         navigate("/admin/dashboard");
                     }
                     

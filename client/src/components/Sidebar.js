@@ -93,7 +93,6 @@ const Sidebar = ({
                 }
             })
         } catch (error) {
-            console.log(error)
         }
     }
 

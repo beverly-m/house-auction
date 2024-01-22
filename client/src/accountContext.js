@@ -18,7 +18,6 @@ const UserContext = ({children}) => {
                 return; 
             })
             .then( response => {
-                console.log(`response after get loggedIn: ${JSON.stringify(response.data)}`)
                 if (!response || !response.data || response.status !== 200) {
                     setUser({ loggedIn: false, email: null, role: null })
                     return;

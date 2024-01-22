@@ -40,7 +40,6 @@ const AdminNavbar = ({
                 }
             })
         } catch (error) {
-            console.log(error)
         }
     }
 

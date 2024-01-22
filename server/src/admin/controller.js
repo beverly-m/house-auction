@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const { SALT_ROUNDS } = process.env;
 
 const login = async (req, res) => {
-    console.log(req.session.user);
 
     try {
         validateForm(req, res);
@@ -16,7 +15,6 @@ const login = async (req, res) => {
         const attemptLogin = await pool.query(queries.getUser, [email]);
 
         if (attemptLogin.rowCount === 0) {
-            console.log("Failed login username")
             return res.status(401).json({
                 loggedIn: false, 
                 status: "Wrong email or password"
@@ -36,7 +34,6 @@ const login = async (req, res) => {
                     role: attemptLogin.rows[0].user_role 
                 });
             } else {
-                console.log("Failed login password")
                 return res.status(401).json({
                     loggedIn: false, 
                     status: "Wrong email or password"
@@ -45,7 +42,6 @@ const login = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
         res.status(500);
     }
 }
@@ -67,7 +63,6 @@ const signup = async (req, res) => {
                 email: email, 
                 role: newUser.rows[0].user_role,
             }
-            console.log("User created");
             res.status(200).json({
                 loggedIn: true, 
                 email: email, 
@@ -76,7 +71,6 @@ const signup = async (req, res) => {
             return;
 
         } else {
-            console.log("Herrrreeeee")
             res.status(401).json({
                 loggedIn: false, 
                 status: "Email address taken."
@@ -84,16 +78,13 @@ const signup = async (req, res) => {
             return;
         }
     } catch (error) {
-        console.log(error);
         res.status(500);
     }
     
 }
 
 const checkLoggedIn = (req, res) => {
-    console.log(`Session: ${JSON.stringify(req.session)}`)
     if (req.session.user && req.session.user.email) {
-        console.log("logged in")
         res.status(200).json({loggedIn: true, email: req.session.user.email, role: req.session.user.role});
     } else {
         res.status(200).json({loggedIn: false, email: null, role: null});
@@ -101,18 +92,12 @@ const checkLoggedIn = (req, res) => {
 }
 
 const logout = (req, res) => {
-    console.log("Logging out")
     if (req.session.user) {
-        console.log(req.session.user)
             req.session.destroy(function () {
             res.status(200).clearCookie('connect.sid', { path: '/' });
             res.end();
             return;
         })
-        // req.session = null;
-        // res.status(200).clearCookie('sid', { path: '/' });
-        // res.end();
-        // return;
     } else {
         res.status(200);
         return;
@@ -145,7 +130,6 @@ const addAdmin = async (req, res) => {
             const hashedPass = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
             const newUser = await pool.query(queries.addUser, [email, hashedPass, 'viewer']);
 
-            console.log("User created");
             res.status(200).json({status: "User added"});
             return;
 
@@ -156,7 +140,6 @@ const addAdmin = async (req, res) => {
             return;
         }
     } catch (error) {
-        console.log(error);
         res.status(500);
     }
     
@@ -166,7 +149,6 @@ const getEmployees = (req, res) => {
     try {
         pool.query(queries.getEmployees, (error, result) => {
             if (error) throw error;
-            console.log(result.rows)
             res.status(200).json(result.rows);
         });
     } catch (error) {
@@ -178,7 +160,6 @@ const getHouses = (req, res) => {
     try {
         pool.query(queries.getHouses, (error, result) => {
             if (error) throw error;
-            console.log(result.rows)
             res.status(200).json(result.rows);
         });
     } catch (error) {

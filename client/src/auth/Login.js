@@ -13,8 +13,6 @@ const Login = () => {
 
     const [error, setError] = useState(null);
 
-    console.log(user);
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -49,7 +47,6 @@ const Login = () => {
                         setError("An error occurred. Try again.");
                         return;
                     }
-                    console.log(response.data);
                     setUser({...response.data});
                     navigate("/admin/dashboard");
                 })

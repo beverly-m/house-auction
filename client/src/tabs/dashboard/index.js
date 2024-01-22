@@ -22,7 +22,6 @@ const Dashboard = () => {
           Axios.get(`http://localhost:5000/api/v1/admin/dashboard`)
           .then(response => {
               if (response.status !== 200) return;
-              console.log(response.data);
               setData(response.data);
           })
           ;

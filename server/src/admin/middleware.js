@@ -20,7 +20,7 @@ const validateForm = (req, res) => {
     })
     .then(valid => {
         if (valid) {
-            console.log("Good to go!");
+            return;
         }
     })
 }
