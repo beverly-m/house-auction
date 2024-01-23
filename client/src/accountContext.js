@@ -5,9 +5,11 @@ export const AccountContext = createContext();
 
 const UserContext = ({children}) => {
     const [user, setUser] = useState({loggedIn: null, email: null, role: null});
+    
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     useEffect(() => {
-        Axios.get('http://localhost:5000/api/v1/admin', {
+        Axios.get(`http://${PORT}/api/v1/admin`, {
             headers: {
                 "Content-Type": "application/json",
             },

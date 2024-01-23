@@ -5,12 +5,12 @@ import Navbar from '../components/Navbar';
 
 function BidInfo() {
   const [data, setData] = useState("");
-
   const navigate = useNavigate();
   const params = useLocation();
+  const PORT = process.env.PORT || 'localhost:'+5000;
 
   const redirect = useCallback(() => {
-      Axios.get(`http://localhost:5000/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
+      Axios.get(`http://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
       .then(response => {          
           if (response.data.status === 401)  {
               navigate('/');

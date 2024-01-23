@@ -8,9 +8,10 @@ import CustomToolbar from '../../components/CustomToolbar';
 const Employees = () => {
 
     const [data, setData] = useState();
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     const getData = useCallback(() => {
-        Axios.get(`http://localhost:5000/api/v1/admin/employees`).then(response => {
+        Axios.get(`http://${PORT}/api/v1/admin/employees`).then(response => {
             if (response.status !== 200) return;
             setData(response.data);
         })

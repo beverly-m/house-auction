@@ -46,42 +46,42 @@ const login = async (req, res) => {
     }
 }
 
-const signup = async (req, res) => {
-    try {
-        validateForm(req, res);
+// const signup = async (req, res) => {
+//     try {
+//         validateForm(req, res);
 
-        const { email, password } = req.body.vals;
+//         const { email, password } = req.body.vals;
 
-        const existingUser = await pool.query(queries.findUser, [email]);
+//         const existingUser = await pool.query(queries.findUser, [email]);
 
-        if (existingUser.rowCount === 0) {
-            // register user
-            const hashedPass = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
-            const newUser = await pool.query(queries.addUser, [email, hashedPass, 'admin']);
+//         if (existingUser.rowCount === 0) {
+//             // register user
+//             const hashedPass = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
+//             const newUser = await pool.query(queries.addUser, [email, hashedPass, 'admin']);
 
-            req.session.user = {
-                email: email, 
-                role: newUser.rows[0].user_role,
-            }
-            res.status(200).json({
-                loggedIn: true, 
-                email: email, 
-                role: newUser.rows[0].user_role 
-            });
-            return;
+//             req.session.user = {
+//                 email: email, 
+//                 role: newUser.rows[0].user_role,
+//             }
+//             res.status(200).json({
+//                 loggedIn: true, 
+//                 email: email, 
+//                 role: newUser.rows[0].user_role 
+//             });
+//             return;
 
-        } else {
-            res.status(401).json({
-                loggedIn: false, 
-                status: "Email address taken."
-            });
-            return;
-        }
-    } catch (error) {
-        res.status(500);
-    }
+//         } else {
+//             res.status(401).json({
+//                 loggedIn: false, 
+//                 status: "Email address taken."
+//             });
+//             return;
+//         }
+//     } catch (error) {
+//         res.status(500);
+//     }
     
-}
+// }
 
 const checkLoggedIn = (req, res) => {
     if (req.session.user && req.session.user.email) {
@@ -202,6 +202,6 @@ module.exports = {
     login,
     checkLoggedIn,
     logout,
-    signup,
+    // signup,
     changepassword,
 }

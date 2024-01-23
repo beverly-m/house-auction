@@ -9,12 +9,12 @@ function AddBid() {
   const [formData, setFormData] = useState({house_alias: null});
   const [optionsData, setOptionsData] = useState([]);
   const [errorMsg, setErrorMsg] = useState('');
-
+  const PORT = process.env.PORT || 'localhost:'+5000;
   const navigate = useNavigate();
   const params = useLocation();
 
   const getOptions = useCallback(() => {
-    Axios.get(`http://localhost:5000/api/v1/houses`)
+    Axios.get(`http://${PORT}/api/v1/houses`)
     .then(response => {
       const houses = Object.entries(response.data.houses);
       const housesArr = houses.map(item => ({
@@ -26,7 +26,7 @@ function AddBid() {
   }, []);
 
   const redirect = useCallback(() => {
-      Axios.get(`http://localhost:5000/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
+      Axios.get(`http://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
       .then(response  => {
           if (response.data.status === 401)  {
               navigate('/')
@@ -52,7 +52,7 @@ function AddBid() {
       if (formData.house_alias === null) {
         setErrorMsg("Select a number");
       } else {
-        Axios.post(`http://localhost:5000/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`, {alias: formData.house_alias}).then(response => {
+        Axios.post(`http://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`, {alias: formData.house_alias}).then(response => {
             if (response.data) {
                 if (response.data.status === 401) {
                     setErrorMsg(response.data.error); 

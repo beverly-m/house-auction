@@ -13,6 +13,8 @@ const Signup = () => {
 
     const [error, setError] = useState(null);
 
+    const PORT = process.env.PORT || 'localhost:'+5000;
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -33,7 +35,7 @@ const Signup = () => {
 
             try {
                 Axios
-                .post('http://localhost:5000/api/v1/admin/register', {vals}, {
+                .post(`http://${PORT}/api/v1/admin/register`, {vals}, {
                     headers: {
                         "Content-Type": "application/json",
                     },

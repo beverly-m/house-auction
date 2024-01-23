@@ -14,13 +14,13 @@ const session = require("express-session");
 
 const app = express();
 
-const { API_PORT, SESSION_SECRET, ENVIRONMENT } = process.env;
+const { API_PORT, SESSION_SECRET, ORIGIN } = process.env;
 
 const port = process.env.PORT || API_PORT;
 
 app.use(cors({
     credentials: true, 
-    origin: "http://localhost:3000"
+    origin: ORIGIN || process.env.CORS_ORIGIN
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -52,9 +52,5 @@ app.use("/api/v1/employees", employeeRoutes);
 app.use("/api/v1/employees/auction", employeeHousesRoutes);
 app.use("/api/v1/houses", houseRoutes);
 app.use("/api/v1/admin", adminRoutes);
-
-app.get("/", (req, res) => {
-    res.send("Hello World!"); 
-})
 
 app.listen(port, () => console.log(`app listening on port ${port}`)); 

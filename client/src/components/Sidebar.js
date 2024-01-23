@@ -61,11 +61,10 @@ const Sidebar = ({
 }) => {
     const [active, setActive] = useState("");
     const navigate = useNavigate();
-
     const {user, setUser} = useContext(AccountContext);
-
     const [open, setOpen] = useState(false);
     const [error, setError] = useState();
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -77,7 +76,7 @@ const Sidebar = ({
 
     const handleLogOut = () => {
         try {
-            Axios.get('http://localhost:5000/api/v1/admin/logout', {
+            Axios.get(`http://${PORT}/api/v1/admin/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

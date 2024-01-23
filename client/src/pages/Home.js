@@ -6,14 +6,14 @@ import Navbar from '../components/Navbar';
 
 function Home() {
     const navigate = useNavigate();
-
     const [formData, setFormData] = useState({company_no: ''});
     const [errorMsg, setErrorMsg] = useState('');
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        Axios.post(`http://localhost:5000/api/v1/employees/${formData.company_no}`).then(response => {
+        Axios.post(`http://${PORT}/api/v1/employees/${formData.company_no}`).then(response => {
             if (response.data) {
                 if (response.data.status === 401) {
                     setErrorMsg(response.data.error); 

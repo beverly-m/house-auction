@@ -14,9 +14,10 @@ const Admin = () => {
     const [error, setError] = useState(null);
     const {user} = useContext(AccountContext);
     const navigate = useNavigate();
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     const getData = useCallback(() => {
-        Axios.get(`http://localhost:5000/api/v1/admin/management`).then(response => {
+        Axios.get(`http://${PORT}/api/v1/admin/management`).then(response => {
             if (response.status !== 200) return;
             setData(response.data.users);
         });
@@ -55,7 +56,7 @@ const Admin = () => {
 
             try {
                 Axios
-                .post('http://localhost:5000/api/v1/admin/management/add', {vals}, {
+                .post(`http://${PORT}/api/v1/admin/management/add`, {vals}, {
                     headers: {
                         "Content-Type": "application/json",
                     },

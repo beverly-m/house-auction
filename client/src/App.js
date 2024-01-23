@@ -44,10 +44,9 @@ function App() {
             <Route path="/bid/:id/:token" element={<BidInfo />} /> 
             <Route path="*" element={<NoPage />} />
             <Route path='/admin' element={<Login />} />
-            <Route path='/admin/register' element={<Signup />} />
+            {/* <Route path='/admin/register' element={<Signup />} /> */}
             <Route element={<PrivateRoutes />}>
               <Route element={<Layout />}>
-                {/* <Route path='/admin' element={<Navigate to="/admin/dashboard" replace />} /> */}
                 <Route path='/admin/dashboard' element={<Dashboard />} />
                 <Route path='/admin/employees' element={<Employees />} />
                 <Route path='/admin/houses' element={<Houses />} />

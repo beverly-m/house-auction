@@ -11,15 +11,13 @@ import { useNavigate } from 'react-router-dom';
 const Dashboard = () => {
 
     const [data, setData] = useState();
-
     const navigate = useNavigate();
-
     const theme = useTheme();
-
     const isNonMediumScreen = useMediaQuery("(min-width: 1200px)");
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     const getData = useCallback(() => {
-          Axios.get(`http://localhost:5000/api/v1/admin/dashboard`)
+          Axios.get(`http://${PORT}/api/v1/admin/dashboard`)
           .then(response => {
               if (response.status !== 200) return;
               setData(response.data);

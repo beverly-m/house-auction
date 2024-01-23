@@ -13,6 +13,7 @@ const AdminNavbar = ({
     const [error, setError] = useState();
     const { setUser } = useContext(AccountContext);
     const navigate = useNavigate();
+    const PORT = process.env.PORT || 'localhost:'+5000;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,7 +25,7 @@ const AdminNavbar = ({
 
     const handleLogOut = () => {
         try {
-            Axios.get('http://localhost:5000/api/v1/admin/logout', {
+            Axios.get(`http://${PORT}/api/v1/admin/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -35,6 +36,7 @@ const AdminNavbar = ({
                     return;
                 } 
                 else {
+                    handleClose();
                     setUser({loggedIn: null, email: null, role: null});
                     navigate("/admin");
                 }

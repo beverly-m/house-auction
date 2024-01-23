@@ -13,6 +13,8 @@ const Login = () => {
 
     const [error, setError] = useState(null);
 
+    const PORT = process.env.PORT || 'localhost:'+5000;
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -32,7 +34,7 @@ const Login = () => {
             actions.resetForm();
 
             try {
-                Axios.post('http://localhost:5000/api/v1/admin', {vals}, {
+                Axios.post(`http://${PORT}/api/v1/admin`, {vals}, {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -107,11 +109,17 @@ const Login = () => {
                     />
                     <FormHelperText>{formik.errors.password}</FormHelperText>
                 </FormControl>
-                <ButtonGroup sx={{mt: "3rem", display: "flex", width: "100%"}}>
+                <Button 
+                fullWidth variant='contained' 
+                type='submit'
+                sx={{mt: "3rem"}}
+                >
+                    Log In
+                </Button>
+                {/* <ButtonGroup sx={{mt: "3rem", display: "flex", width: "100%"}}>
                     <Button fullWidth variant='contained' type='submit'>Log In</Button>
                     <Button fullWidth variant='text' onClick={() => {navigate("/admin/register")}}>Create Account</Button>
-                </ButtonGroup>
-                
+                </ButtonGroup> */}
         </Box>
         </form>
     )
