@@ -64,7 +64,7 @@ const Sidebar = ({
     const {user, setUser} = useContext(AccountContext);
     const [open, setOpen] = useState(false);
     const [error, setError] = useState();
-    const PORT = process.env.PORT || 'localhost:'+5000;
+    const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const handleClickOpen = () => {
         setOpen(true);

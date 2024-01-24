@@ -13,7 +13,7 @@ const Signup = () => {
 
     const [error, setError] = useState(null);
 
-    const PORT = process.env.PORT || 'localhost:'+5000;
+    const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const formik = useFormik({
         initialValues: {

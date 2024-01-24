@@ -13,7 +13,7 @@ const AdminNavbar = ({
     const [error, setError] = useState();
     const { setUser } = useContext(AccountContext);
     const navigate = useNavigate();
-    const PORT = process.env.PORT || 'localhost:'+5000;
+    const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const handleClickOpen = () => {
         setOpen(true);

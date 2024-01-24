@@ -14,13 +14,13 @@ const session = require("express-session");
 
 const app = express();
 
-const { API_PORT, SESSION_SECRET, ORIGIN } = process.env;
+const { API_PORT, SESSION_SECRET, REACT_URL } = process.env;
 
 const port = process.env.PORT || API_PORT;
 
 app.use(cors({
     credentials: true, 
-    origin: ORIGIN || process.env.CORS_ORIGIN
+    origin: REACT_URL || process.env.REACT_URL
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

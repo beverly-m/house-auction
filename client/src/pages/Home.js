@@ -8,7 +8,7 @@ function Home() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({company_no: ''});
     const [errorMsg, setErrorMsg] = useState('');
-    const PORT = process.env.PORT || 'localhost:'+5000;
+    const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const handleSubmit = async (event) => {
         event.preventDefault();

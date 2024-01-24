@@ -9,7 +9,7 @@ function AddBid() {
   const [formData, setFormData] = useState({house_alias: null});
   const [optionsData, setOptionsData] = useState([]);
   const [errorMsg, setErrorMsg] = useState('');
-  const PORT = process.env.PORT || 'localhost:'+5000;
+  const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
   const navigate = useNavigate();
   const params = useLocation();
 

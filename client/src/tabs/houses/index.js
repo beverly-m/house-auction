@@ -8,7 +8,7 @@ import CustomToolbar from '../../components/CustomToolbar';
 const Houses = () => {
 
     const [data, setData] = useState();
-    const PORT = process.env.PORT || 'localhost:'+5000;
+    const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const getData = useCallback(() => {
         Axios.get(`http://${PORT}/api/v1/admin/houses`)
