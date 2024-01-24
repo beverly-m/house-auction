@@ -14,13 +14,16 @@ const session = require("express-session");
 
 const app = express();
 
-const { API_PORT, SESSION_SECRET, REACT_URL } = process.env;
+const { API_PORT, SESSION_SECRET, REACT_URL, APP_ENV } = process.env;
 
 const port = process.env.PORT || API_PORT;
 
 app.use(cors({
     credentials: true, 
-    origin:  REACT_URL
+    origin:  REACT_URL,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Content-Type-Options', 'Accept', 'X-Requested-With', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'],
+    maxAge: 21600,
+    methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'CONNECT'],
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,9 +43,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: app.get('env') === "production" ? "true" : "auto",
+        secure: APP_ENV === "production" ? "true" : "auto",
         httpOnly: true,
-        sameSite: app.get('env') === "production" ? "none" : "lax",
+        sameSite: APP_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60 * 6, 
     }
 }))

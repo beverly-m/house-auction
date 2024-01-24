@@ -17,7 +17,12 @@ const Admin = () => {
     const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const getData = useCallback(() => {
-        Axios.get(`https://${PORT}/api/v1/admin/management`).then(response => {
+        Axios.get(`https://${PORT}/api/v1/admin/management`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }).then(response => {
             if (response.status !== 200) return;
             setData(response.data.users);
         });
