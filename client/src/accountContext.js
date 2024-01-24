@@ -9,7 +9,7 @@ const UserContext = ({children}) => {
     const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     useEffect(() => {
-        Axios.get(`http://${PORT}/api/v1/admin`, {
+        Axios.get(`https://${PORT}/api/v1/admin`, {
             headers: {
                 "Content-Type": "application/json",
             },

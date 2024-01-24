@@ -34,7 +34,7 @@ const Login = () => {
             actions.resetForm();
 
             try {
-                Axios.post(`http://${PORT}/api/v1/admin`, {vals}, {
+                Axios.post(`https://${PORT}/api/v1/admin`, {vals}, {
                     headers: {
                         "Content-Type": "application/json",
                     },

@@ -35,7 +35,7 @@ const Signup = () => {
 
             try {
                 Axios
-                .post(`http://${PORT}/api/v1/admin/register`, {vals}, {
+                .post(`https://${PORT}/api/v1/admin/register`, {vals}, {
                     headers: {
                         "Content-Type": "application/json",
                     },

@@ -25,7 +25,7 @@ const AdminNavbar = ({
 
     const handleLogOut = () => {
         try {
-            Axios.get(`http://${PORT}/api/v1/admin/logout`, {
+            Axios.get(`https://${PORT}/api/v1/admin/logout`, {
                 headers: {
                     "Content-Type": "application/json",
                 },

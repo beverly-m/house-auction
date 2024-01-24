@@ -17,7 +17,7 @@ const Dashboard = () => {
     const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
     const getData = useCallback(() => {
-          Axios.get(`http://${PORT}/api/v1/admin/dashboard`)
+          Axios.get(`https://${PORT}/api/v1/admin/dashboard`)
           .then(response => {
               if (response.status !== 200) return;
               setData(response.data);
