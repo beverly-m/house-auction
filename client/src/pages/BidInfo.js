@@ -10,7 +10,7 @@ function BidInfo() {
   const PORT = process.env.REACT_APP_PORT || 'localhost:'+5000;
 
   const redirect = useCallback(() => {
-      Axios.get(`http://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
+      Axios.get(`https://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
       .then(response => {          
           if (response.data.status === 401)  {
               navigate('/');

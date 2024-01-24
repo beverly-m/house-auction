@@ -13,7 +13,7 @@ function Home() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        Axios.post(`http://${PORT}/api/v1/employees/${formData.company_no}`).then(response => {
+        Axios.post(`https://${PORT}/api/v1/employees/${formData.company_no}`).then(response => {
             if (response.data) {
                 if (response.data.status === 401) {
                     setErrorMsg(response.data.error); 

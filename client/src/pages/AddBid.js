@@ -14,7 +14,7 @@ function AddBid() {
   const params = useLocation();
 
   const getOptions = useCallback(() => {
-    Axios.get(`http://${PORT}/api/v1/houses`)
+    Axios.get(`https://${PORT}/api/v1/houses`)
     .then(response => {
       const houses = Object.entries(response.data.houses);
       const housesArr = houses.map(item => ({
@@ -26,7 +26,7 @@ function AddBid() {
   }, []);
 
   const redirect = useCallback(() => {
-      Axios.get(`http://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
+      Axios.get(`https://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`)
       .then(response  => {
           if (response.data.status === 401)  {
               navigate('/')
@@ -52,7 +52,7 @@ function AddBid() {
       if (formData.house_alias === null) {
         setErrorMsg("Select a number");
       } else {
-        Axios.post(`http://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`, {alias: formData.house_alias}).then(response => {
+        Axios.post(`https://${PORT}/api/v1/employees/auction/${params.state.company_no}/${params.state.token}`, {alias: formData.house_alias}).then(response => {
             if (response.data) {
                 if (response.data.status === 401) {
                     setErrorMsg(response.data.error); 
