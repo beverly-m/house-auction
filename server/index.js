@@ -21,7 +21,7 @@ const port = process.env.PORT || API_PORT;
 app.use(cors({
     credentials: true, 
     origin:  REACT_URL,
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Content-Type-Options', 'Accept', 'X-Requested-With', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Content-Type-Options', 'Accept', 'X-Requested-With', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers', 'Access-Control-Allow-Origin'],
     maxAge: 21600,
     methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'CONNECT'],
 }));

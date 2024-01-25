@@ -10,6 +10,6 @@ adminRoutes.get("/management", controller.getAdmins);
 adminRoutes.post("/management/add", controller.addAdmin);
 adminRoutes.route("/").get(controller.checkLoggedIn).post(controller.login); 
 // adminRoutes.post("/register", controller.signup);
-adminRoutes.get("/logout", controller.logout);
+adminRoutes.post("/logout", controller.logout);
 
 module.exports = adminRoutes;

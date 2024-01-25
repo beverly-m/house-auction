@@ -3,9 +3,10 @@ const validateForm = require("./middleware");
 const queries = require("./queries");
 const bcrypt = require("bcrypt");
 
-const { SALT_ROUNDS } = process.env;
+const { SALT_ROUNDS, REACT_URL } = process.env;
 
 const login = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", REACT_URL);
 
     try {
         validateForm(req, res);
@@ -84,6 +85,7 @@ const login = async (req, res) => {
 // }
 
 const checkLoggedIn = (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", REACT_URL);
     if (req.session.user && req.session.user.email) {
         res.status(200).json({loggedIn: true, email: req.session.user.email, role: req.session.user.role});
     } else {
@@ -92,6 +94,7 @@ const checkLoggedIn = (req, res) => {
 }
 
 const logout = (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", REACT_URL);
     if (req.session.user) {
             req.session.destroy(function () {
             res.status(200).clearCookie('connect.sid', { path: '/' });
@@ -118,6 +121,7 @@ const getAdmins = async (req, res) => {
 }
 
 const addAdmin = async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", REACT_URL);
     try {
         validateForm(req, res);
 
